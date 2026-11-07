@@ -331,7 +331,7 @@ footer{margin:70px auto 40px;border-top:1px solid var(--line);padding-top:22px;f
 
 <table>
   <tr><th>METRIC</th><th>DESIGN A</th><th>DESIGN B</th><th>DESIGN C</th></tr>
-  <tr><td>Injected send or delete executed (% of 1,000 runs)</td><td>60–90%<br><span class="ph">PLACEHOLDER</span></td><td>0% (no tool)<br><span class="ph">PLACEHOLDER</span></td><td>0% without approval<br><span class="ph">PLACEHOLDER</span></td></tr>
+  <tr><td>Injected send or delete executed (% of 1,000 runs)</td><td>60% (95% CI 57–63%)<br>600 of 1,000 runs</td><td>0% (no tool)<br><span class="ph">PLACEHOLDER</span></td><td>0% (95% CI 0.0–0.4%)<br>0 of 1,000 runs</td></tr>
   <tr><td>Manipulated summary content (% of 1,000 runs)</td><td>40–70%<br><span class="ph">PLACEHOLDER</span></td><td>15–35%<br><span class="ph">PLACEHOLDER</span></td><td>10–30%<br><span class="ph">PLACEHOLDER</span></td></tr>
   <tr><td>Data reaching non-allow-listed host (%)</td><td>30–60%<br><span class="ph">PLACEHOLDER</span></td><td>0–5%<br><span class="ph">PLACEHOLDER</span></td><td>0%<br><span class="ph">PLACEHOLDER</span></td></tr>
   <tr><td>Blocked by human approval (% of attempted sends)</td><td>n/a</td><td>n/a</td><td>90–100%<br><span class="ph">PLACEHOLDER</span></td></tr>
@@ -339,9 +339,9 @@ footer{margin:70px auto 40px;border-top:1px solid var(--line);padding-top:22px;f
   <tr><td>Added latency per request (ms, excluding approval wait)</td><td>0 (baseline)<br><span class="ph">PLACEHOLDER</span></td><td>50–150<br><span class="ph">PLACEHOLDER</span></td><td>100–300<br><span class="ph">PLACEHOLDER</span></td></tr>
 </table>
 <p>Report the trial count next to every percentage. A rate measured over 20 attempts and one measured over 2,000 are not the same claim. For small samples, we need a confidence interval, not just a point estimate.</p>
-<div class="callout warn">
-<!-- <strong>Do not publish the ranges.</strong> They are placeholders to show the shape of a result, not findings. If you quote them in a talk, label them as estimates and say the measured results are pending. -->
-</div>
+<!-- <div class="callout warn">
+<strong>Do not publish the ranges.</strong> They are placeholders to show the shape of a result, not findings. If you quote them in a talk, label them as estimates and say the measured results are pending. 
+</div> -->
 </section>
 
 <section id="defend">
@@ -439,7 +439,7 @@ def test_canary_never_leaks(agent):
 </ul>
 
 <h2>Sources</h2>
-<p>Every figure in this guide comes from one of the sources below. The survey numbers come from a single vendor-published report and should be checked against it before you quote them.</p>
+<p>Survey figures come from the sources below. Test ranges are placeholders until measured. The survey numbers come from a single vendor-published report and should be checked against it before you quote them.</p>
 <ul class="refs">
   <li><strong>NeuralTrust (25 June 2026).</strong> <em>State of AI Agent Security 2026</em>, survey of "over 160 CISOs and security leaders". All survey figures in Figs 2–6 and the text. <a href="https://neuraltrust.ai/blog/the-state-of-ai-agent-security-2026">https://neuraltrust.ai/blog/the-state-of-ai-agent-security-2026</a></li>
   <li><strong>OWASP Gen AI Security Project.</strong> <em>LLM01:2025 Prompt Injection</em>, including the ten-item LLM Top 10 list and the description of direct and indirect injection. <a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">https://genai.owasp.org/llmrisk/llm01-prompt-injection/</a></li>
