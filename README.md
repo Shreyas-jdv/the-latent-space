@@ -34,22 +34,10 @@ the-latent-space/
 
 This is a suggested structure. Keep the paths in your HTML consistent with your actual folders and filenames.
 
-## Run locally
+## Check out the website here
 
-No build tools are required for the basic static site.
 
-1. Clone or download the project.
-2. Open the project folder.
-3. Confirm that image paths in `index.html` point to files that exist.
-4. Open `index.html` in a browser.
-
-Alternatively, use the VS Code Live Server extension, or run:
-
-```bash
-python -m http.server 8000
-```
-
-Then visit <http://localhost:8000>.
+<[The Latent Space ](https://shreyas-jdv.github.io/the-latent-space/)>.
 
 ## Adding a journal card
 
