@@ -36,8 +36,7 @@ This is a suggested structure. Keep the paths in your HTML consistent with your 
 
 ## Check out the website here
 
-
-<[The Latent Space ](https://shreyas-jdv.github.io/the-latent-space/)>.
+[The Latent Space ](https://shreyas-jdv.github.io/the-latent-space/).
 
 ## Adding a journal card
 
