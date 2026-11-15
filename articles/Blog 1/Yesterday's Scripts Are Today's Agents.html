@@ -451,6 +451,54 @@ def test_canary_never_leaks(agent):
 </ul>
 </section>
 
+<section id="feedback">
+<h2>Send feedback</h2>
+<div class="fb-wrap">
+  <p class="lede">Found a wrong number, a confusing term, or a better example? Tell me. Every note goes straight to the author.</p>
+  <form class="fb-form" id="fbForm" novalidate>
+    <div class="fb-row">
+      <div class="fb-field">
+        <label for="fbName">Your name</label>
+        <input id="fbName" name="name" type="text" maxlength="80" placeholder="Optional" autocomplete="name">
+      </div>
+      <div class="fb-field">
+        <label for="fbEmail">Your email</label>
+        <input id="fbEmail" name="email" type="email" maxlength="120" placeholder="Optional, if you want a reply" autocomplete="email">
+      </div>
+    </div>
+    <div class="fb-field">
+      <label for="fbType">Feedback type</label>
+      <select id="fbType" name="type">
+        <option>General comment</option>
+        <option>Factual correction</option>
+        <option>Unclear explanation</option>
+        <option>Suggest a case study</option>
+        <option>Design or formatting</option>
+      </select>
+    </div>
+    <div class="fb-field">
+      <span class="lbl">How useful was this guide?</span>
+      <div class="fb-stars" role="radiogroup" aria-label="Rating">
+        <input type="radio" id="r1" name="rating" value="1"><label for="r1">1</label>
+        <input type="radio" id="r2" name="rating" value="2"><label for="r2">2</label>
+        <input type="radio" id="r3" name="rating" value="3"><label for="r3">3</label>
+        <input type="radio" id="r4" name="rating" value="4"><label for="r4">4</label>
+        <input type="radio" id="r5" name="rating" value="5" checked><label for="r5">5</label>
+      </div>
+    </div>
+    <div class="fb-field">
+      <label for="fbMessage">Your feedback</label>
+      <textarea id="fbMessage" name="message" maxlength="1500" required placeholder="Tell me what worked, what didn't, or what to fix. Keep it under 1,500 characters."></textarea>
+      <div class="hint" id="fbCount">0 / 1500</div>
+    </div>
+    <div class="fb-actions">
+      <button class="fb-btn" type="submit">Send feedback</button>
+      <!--<p class="fb-note">Feedback is delivered directly to <a href="mailto:shreyasj.jadhav@gmail.com">shreyasj.jadhav@gmail.com</a>. If direct sending fails, your email app opens as a backup.</p>-->
+    </div>
+    <div class="fb-status" id="fbStatus" role="status" aria-live="polite"></div>
+  </form>
+</div>
+</section>  
 </main>
 
 <footer>
