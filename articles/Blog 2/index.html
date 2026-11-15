@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A field guide to the AI terms in the open models letter: open weights, frontier and closed models, distillation, inference, Mixture of Experts, quantization, safety and sovereignty, with data, code and case studies.">
+<title>Open Weights, Explained: A Guide to the Terms in the Open Models Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000000;
+  --panel:#0f0f0f;
+  --panel-2:#171717;
+  --line:#262626;
+  --green:#76B900;
+  --green-hi:#8ED100;
+  --green-dim:#4a7300;
+  --text:#e6e6e6;
+  --muted:#9a9a9a;
+  --amber:#d9a400;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.75}
+a{color:var(--green);text-decoration:none}
+a:hover{color:var(--green-hi);text-decoration:underline;text-underline-offset:3px}
+.wrap{max-width:780px;margin:0 auto;padding:0 22px}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.88em;color:var(--green-hi);background:var(--panel-2);padding:1px 6px;border-radius:4px}
+
+/* progress */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--green);z-index:20}
+
+/* navbar */
+nav.topbar{position:sticky;top:0;z-index:15;background:rgba(0,0,0,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--green),transparent 60%)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;white-space:nowrap}
+.brand:hover{text-decoration:none;color:#fff}
+.brand-mark{width:28px;height:28px;border-radius:4px;background:var(--green);display:grid;place-items:center;color:#000;font-weight:900;font-size:13px;letter-spacing:-.5px}
+.brand-name{font-weight:800;font-size:14px;letter-spacing:.14em}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;border-left:1px solid var(--line);padding-left:12px}
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;border-radius:4px;white-space:nowrap;position:relative}
+.nav-links a:hover{color:#fff;text-decoration:none;background:var(--panel-2)}
+.nav-links a::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:2px;background:var(--green);transform:scaleX(0);transition:transform .2s}
+.nav-links a:hover::after{transform:scaleX(1)}
+@media(max-width:900px){.brand-sub{display:none}}
+@media(max-width:700px){.nav-inner{height:auto;padding:10px 16px;flex-direction:column;align-items:flex-start;gap:6px}.nav-links{width:100%}}
+
+/* hero */
+.hero{padding:64px 0 26px;text-align:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;color:#000;background:var(--green);padding:5px 12px;border-radius:3px}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.1;margin:22px 0 16px;color:#fff;font-weight:900;letter-spacing:-.02em}
+h1 span{color:var(--green)}
+.dek{font-size:20px;color:#cfcfcf;max-width:620px;margin:0 auto}
+.byline{font-size:13px;font-weight:700;color:var(--green);margin-top:18px;letter-spacing:.16em}
+.meta{font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+.thumb-slot{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;max-width:760px;aspect-ratio:16/9;margin:30px auto;border:1px dashed var(--green-dim);border-radius:10px;background:linear-gradient(135deg,#0c0c0c,#161616);color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:13px;padding:12px}
+hr.rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);margin:40px auto;max-width:780px;opacity:.5}
+
+/* toc */
+.toc{border:1px solid var(--line);background:var(--panel);border-top:3px solid var(--green);border-radius:8px;padding:18px 22px;margin:30px 0 8px;font-size:15px}
+.toc b{color:var(--green);font-size:12px;letter-spacing:.16em}
+.toc ol{margin:10px 0 0;padding-left:20px;columns:2}
+.toc li{margin-bottom:2px}
+@media(max-width:600px){.toc ol{columns:1}}
+
+/* sections */
+h2{font-size:30px;color:#fff;margin:64px 0 14px;font-weight:800;line-height:1.2;padding-left:18px;position:relative;letter-spacing:-.01em}
+h2::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:5px;background:var(--green);border-radius:2px}
+h3{color:var(--green);font-size:19px;margin:30px 0 8px}
+p{margin:0 0 18px}
+strong{color:#fff}
+em{color:#f0f0f0}
+.punch{font-size:24px;font-weight:800;color:#fff;border-left:4px solid var(--green);padding:4px 0 4px 18px;margin:30px 0;line-height:1.35}
+.punch em{color:var(--green);font-style:normal}
+
+/* figures */
+.fig{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;margin:26px 0}
+.fig svg{width:100%;height:auto;display:block}
+.fig .cap{font-size:12px;font-weight:700;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.fig .note{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.55}
+
+/* scenario and callouts */
+.scenario{background:var(--panel-2);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:16px 22px;margin:24px 0;font-size:16px;color:#dcdcdc}
+.scenario .label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.16em;margin-bottom:6px;text-transform:uppercase}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--green);padding:14px 18px;border-radius:0 8px 8px 0;margin:22px 0;font-size:16px}
+.callout.warn{border-left-color:var(--amber)}
+.callout strong{color:var(--green)}
+.callout.warn strong{color:var(--amber)}
+
+/* code */
+.code{background:#050505;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:22px 0}
+.code .bar{background:#111;padding:9px 14px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.code .dot{width:10px;height:10px;border-radius:50%;background:#333}
+.code .dot.g{background:var(--green)}
+.code .name{margin-left:auto;color:var(--green)}
+.code pre{margin:0;padding:16px 18px;overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.6;color:#d6f2b0}
+.code .c{color:#6b6b6b}
+.code .k{color:#ff8fc2}
+.code .f{color:#8fd3ff}
+.code .n{color:var(--green)}
+.code .out{display:block;color:var(--muted);border-top:1px dashed var(--line);margin-top:10px;padding-top:8px}
+
+/* tables and cards */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--green);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+td.num{font-family:"JetBrains Mono",monospace;color:#fff;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--green);border-radius:8px;padding:14px 16px;font-size:15px;line-height:1.5}
+.card b{display:block;color:var(--green);font-size:12px;letter-spacing:.12em;margin-bottom:6px}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 14px;text-align:center}
+.stat .big{font-family:"JetBrains Mono",monospace;font-size:30px;font-weight:700;color:var(--green)}
+.stat .small{font-size:13px;color:var(--muted);line-height:1.4;margin-top:4px}
+.checklist{list-style:none;padding:0;margin:18px 0}
+.checklist li{padding:10px 0 10px 36px;position:relative;border-bottom:1px solid var(--line)}
+.checklist li::before{content:"";position:absolute;left:2px;top:14px;width:14px;height:14px;border:2px solid var(--green);border-radius:3px}
+.refs{font-size:15px;color:var(--muted);padding-left:20px}
+.refs li{margin-bottom:12px;word-break:break-word}
+.refs a{word-break:break-all}
+
+/* feedback */
+.fb-wrap{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--green);border-radius:10px;padding:26px 24px;margin:30px 0}
+.fb-wrap p.lede{color:#cfcfcf;margin-bottom:20px}
+.fb-form{display:grid;gap:16px}
+.fb-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.fb-row{grid-template-columns:1fr}}
+.fb-field label,.fb-field .lbl{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.fb-field input,.fb-field select,.fb-field textarea{width:100%;background:#000;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:11px 12px;font:inherit;font-size:15px;transition:border-color .2s,box-shadow .2s}
+.fb-field textarea{min-height:130px;resize:vertical}
+.fb-field input:focus,.fb-field select:focus,.fb-field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(118,185,0,.18)}
+.fb-field .hint{font-size:12px;color:var(--muted);margin-top:6px}
+.fb-stars{display:flex;gap:8px;flex-wrap:wrap}
+.fb-stars input{position:absolute;opacity:0;pointer-events:none}
+.fb-stars label{cursor:pointer;min-width:46px;text-align:center;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:#000;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:0;text-transform:none;margin:0;transition:all .15s}
+.fb-stars label:hover{border-color:var(--green-dim);color:#fff}
+.fb-stars input:checked+label{background:var(--green);border-color:var(--green);color:#000;font-weight:700}
+.fb-stars input:focus-visible+label{box-shadow:0 0 0 3px rgba(118,185,0,.35)}
+.fb-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:4px}
+.fb-btn{background:var(--green);color:#000;border:0;border-radius:6px;padding:13px 22px;font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .1s}
+.fb-btn:hover{background:var(--green-hi)}
+.fb-btn:active{transform:translateY(1px)}
+.fb-note{font-size:13px;color:var(--muted);flex:1;min-width:220px}
+.fb-note a{color:var(--green)}
+.fb-status{font-size:14px;color:var(--green);margin-top:4px;min-height:1.4em}
+
+footer{margin:70px auto 40px;border-top:1px solid var(--line);padding:22px 22px 0;font-size:13px;color:var(--muted);text-align:center;max-width:780px}
+footer a{color:var(--green)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav class="topbar">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+    <!--  <span class="brand-mark">SJ</span>-->
+      <span class="brand-name">SHREYAS SANJAY JADHAV</span>
+      <span class="brand-sub">AI Field Notes</span>
+    </a>
+    <div class="nav-links">
+      <a href="#why">Why it matters</a>
+      <a href="#weights">Weights</a>
+      <a href="#open">Open vs open</a>
+      <a href="#inference">Inference</a>
+      <a href="#distill">Distillation</a>
+      <a href="#moe">MoE</a>
+      <a href="#safety">Safety</a>
+      <a href="#cases">Case studies</a>
+      <a href="#feedback">Feedback</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <span class="tag">AI TERMINOLOGY · FIELD GUIDE</span>
+  <h1>Open Weights, <span>Explained.</span> A Guide to the Terms in the Open Models Letter</h1>
+  <p class="dek">Every AI word in the letter, translated into plain English, with real numbers, runnable code, and the case studies that made these terms matter.</p>
+  <!--<div class="thumb-slot" role="img" aria-label="Thumbnail placeholder">-->
+      <img src="D:\Shreyas data\My Downloads\Resume & CV\Resume Australia\Personal Blog page\Nvidia Blog\Thumbnail2.jpg" alt="Thumbnail: Yesterday's Scripts Are Today's Agents" style="display:block;width:100%;max-width:760px;aspect-ratio:16/9;object-fit:cover;margin:30px auto;border:1px solid #14291f;border-radius:10px;box-shadow:0 0 40px rgba(57,255,20,.12)">
+  <!-- </div> -->
+  <p class="byline">BY SHREYAS SANJAY JADHAV</p>
+  <p class="meta">~15 min read · Melbourne</p>
+</header>
+
+<main class="wrap">
+
+<div class="toc">
+  <b>IN THIS GUIDE</b>
+  <ol>
+    <li><a href="#why">The letter in three claims</a></li>
+    <li><a href="#weights">What a model actually is</a></li>
+    <li><a href="#open">Open weights vs. open source</a></li>
+    <li><a href="#inference">Training vs. inference</a></li>
+    <li><a href="#distill">Distillation, with numbers</a></li>
+    <li><a href="#moe">MoE and quantization</a></li>
+    <li><a href="#safety">Safety, security, red teaming</a></li>
+    <li><a href="#ecosystem">Sovereignty and lock-in</a></li>
+    <li><a href="#cases">Four case studies</a></li>
+    <li><a href="#try">Try it yourself</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</div>
+
+<section id="why">
+<h2>The letter in three claims</h2>
+<p>The open models letter, <em>Open Weights and American AI Leadership</em> (July 24, 2026), makes three claims. Each one depends on a technical term most readers skim past. This guide slows down on those terms.</p>
+<div class="grid">
+  <div class="card"><b>CLAIM 1</b>AI will transform every industry and be built by every country.</div>
+  <div class="card"><b>CLAIM 2</b>Open models strengthen safety, cybersecurity, innovation and sovereignty.</div>
+  <div class="card"><b>CLAIM 3</b>The world needs both frontier closed models and frontier open models.</div>
+</div>
+<p class="punch">You cannot judge a claim about "open" AI until you know what is actually open.</p>
+<div class="scenario">
+  <div class="label">Relatable scenario</div>
+  A closed model is a famous bakery sold through a window. You get excellent cake, but never the recipe, you cannot change the sugar, and if the bakery closes, your menu closes with it. Open weights are the finished recipe card with exact quantities. You can bake it in your own kitchen, adjust it for local tastes, and keep baking even if the famous bakery disappears.
+</div>
+</section>
+
+<section id="weights">
+<h2>What a model actually is</h2>
+<p>A neural network is a function with billions of adjustable knobs. Each knob is a <strong>parameter</strong>, stored as a <strong>weight</strong>: a floating-point number inside a matrix. <em>Training</em> nudges those numbers until predictions match examples. The weights are what remains afterwards: the learned knowledge, stored as numbers.</p>
+<p class="punch">A model is a recipe with 117 billion knobs. The weights are the knob settings.</p>
+<p>So "releasing weights" means publishing the trained result itself. Not a product, not an API, and not a description of the result.</p>
+
+<div class="fig">
+  <div class="cap">Fig 1 · One layer, many weights</div>
+  <svg viewBox="0 0 700 320" role="img" aria-label="Diagram of a small neural network where every line is a weight">
+    <g stroke="#76B900" stroke-width="1.2" opacity="0.7">
+      <line x1="90" y1="70" x2="330" y2="100"/><line x1="90" y1="70" x2="330" y2="180"/><line x1="90" y1="70" x2="330" y2="260"/>
+      <line x1="90" y1="160" x2="330" y2="100"/><line x1="90" y1="160" x2="330" y2="180"/><line x1="90" y1="160" x2="330" y2="260"/>
+      <line x1="90" y1="250" x2="330" y2="100"/><line x1="90" y1="250" x2="330" y2="180"/><line x1="90" y1="250" x2="330" y2="260"/>
+      <line x1="330" y1="100" x2="610" y2="170"/><line x1="330" y1="100" x2="610" y2="250"/>
+      <line x1="330" y1="180" x2="610" y2="170"/><line x1="330" y1="180" x2="610" y2="250"/>
+      <line x1="330" y1="260" x2="610" y2="170"/><line x1="330" y1="260" x2="610" y2="250"/>
+    </g>
+    <g fill="#0f0f0f" stroke="#76B900" stroke-width="2">
+      <circle cx="90" cy="70" r="14"/><circle cx="90" cy="160" r="14"/><circle cx="90" cy="250" r="14"/>
+      <circle cx="330" cy="100" r="16"/><circle cx="330" cy="180" r="16"/><circle cx="330" cy="260" r="16"/>
+      <circle cx="610" cy="170" r="14"/><circle cx="610" cy="250" r="14"/>
+    </g>
+    <g font-family="JetBrains Mono,monospace" font-size="14" fill="#9a9a9a" text-anchor="middle">
+      <text x="90" y="300">input</text><text x="330" y="300">hidden</text><text x="610" y="300">output</text>
+    </g>
+    <text x="350" y="30" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="14" fill="#76B900">Each line = 1 weight. This toy has 18. gpt-oss-120b has 117 billion.</text>
+  </svg>
+  <div class="note">Illustrative toy network. Open weights means publishing every line's value, not just the picture.</div>
+</div>
+</section>
+
+<section id="open">
+<h2>Open weights vs. open source</h2>
+<p>This is the most important distinction in the letter and the most misused phrase in AI. The Open Source Initiative (OSI) defines "open source" strictly. Many model releases fall short of that, which is why people say "open weights".</p>
+
+<div class="fig">
+  <div class="cap">Fig 2 · The openness spectrum</div>
+  <svg viewBox="0 0 700 150" role="img" aria-label="Spectrum from closed API to open source">
+    <defs><linearGradient id="sp" x1="0" x2="1"><stop offset="0" stop-color="#262626"/><stop offset="0.5" stop-color="#4a7300"/><stop offset="1" stop-color="#76B900"/></linearGradient></defs>
+    <rect x="40" y="50" width="620" height="18" rx="9" fill="url(#sp)"/>
+    <g font-family="Inter,sans-serif" font-size="14" fill="#9a9a9a" text-anchor="middle">
+      <circle cx="90" cy="59" r="10" fill="#000" stroke="#9a9a9a" stroke-width="2"/>
+      <text x="90" y="95" font-weight="700" fill="#fff">Closed API</text><text x="90" y="115">weights hidden</text>
+      <circle cx="350" cy="59" r="10" fill="#000" stroke="#76B900" stroke-width="2"/>
+      <text x="350" y="95" font-weight="700" fill="#fff">Open weights</text><text x="350" y="115">licence varies</text>
+      <circle cx="610" cy="59" r="10" fill="#000" stroke="#76B900" stroke-width="2"/>
+      <text x="610" y="95" font-weight="700" fill="#fff">Open source (OSI)</text><text x="610" y="115">code + data + licence</text>
+    </g>
+  </svg>
+  <div class="note">Illustrative positioning. OpenAI describes gpt-oss as "open-weight" and not open source, because the OSI definition requires publishing training data.</div>
+</div>
+
+<table>
+  <tr><th>Term</th><th>What you get</th><th>Example</th></tr>
+  <tr><td><strong>Open weights</strong></td><td>Downloadable trained parameters. Usage terms vary.</td><td>Llama, Qwen, DeepSeek-R1 distills, gpt-oss</td></tr>
+  <tr><td><strong>Open source (OSI)</strong></td><td>Code, and enough information to rebuild the work, under an approved licence.</td><td>Linux, PyTorch</td></tr>
+  <tr><td><strong>Closed model</strong></td><td>Access via API or app. No weights.</td><td>Most frontier models sold as a service</td></tr>
+</table>
+
+<div class="callout warn"><strong>Licence check:</strong> "Open" does not mean "free for any use". The OSI does not classify Llama as open source because of its commercial restrictions. gpt-oss uses Apache 2.0, a permissive licence. Read the licence before you build a product on any open model.</div>
+
+<div class="scenario">
+  <div class="label">Relatable scenario</div>
+  One friend shares the ingredient list. Another shares the ingredient list, the test-kitchen notebook, the failed batches, and the oven settings. Both are generous. Only the second lets you reproduce and study the whole process. That gap is the gap between open weights and open source.
+</div>
+</section>
+
+<section id="inference">
+<h2>Training vs. inference</h2>
+<p><strong>Training</strong> creates the weights. It is expensive and done once or rarely. <strong>Inference</strong> uses the weights to generate answers. It happens billions of times and is what most organisations actually pay for.</p>
+<p>When you run a model yourself, the first question is almost always: <em>will it fit in memory?</em> Every engineer should be able to do this arithmetic in their head: <code>parameters × bits ÷ 8</code> bytes.</p>
+
+<div class="code">
+  <div class="bar"><span class="dot"></span><span class="dot g"></span><span class="dot"></span><span class="name">memory_estimate.py</span></div>
+<pre><span class="c"># Rough weight-only memory estimate (no KV cache, no activations)</span>
+<span class="k">def</span> <span class="f">weight_memory_gb</span>(params_billion, bits_per_param):
+    <span class="k">return</span> params_billion * 1e9 * bits_per_param / 8 / 1e9
+
+<span class="k">for</span> bits <span class="k">in</span> [16, 8, 4]:
+    print(f<span class="n">"21B model @ {bits:>2}-bit: {weight_memory_gb(21, bits):5.1f} GB"</span>)
+<span class="out">21B model @ 16-bit:  42.0 GB
+21B model @  8-bit:  21.0 GB
+21B model @  4-bit:  10.5 GB</span></pre>
+</div>
+
+<div class="fig">
+  <div class="cap">Fig 3 · Weight memory by precision (GB, weights only)</div>
+  <svg viewBox="0 0 700 330" role="img" aria-label="Bar chart of model memory by precision">
+    <g font-family="Inter,sans-serif" font-size="14" fill="#d6d6d6">
+      <text x="0" y="40">21B @ 16-bit</text><text x="0" y="90">21B @ 8-bit</text><text x="0" y="140">21B @ 4-bit</text>
+      <text x="0" y="200">117B @ 16-bit</text><text x="0" y="250">117B @ 8-bit</text><text x="0" y="300">117B @ 4-bit</text>
+    </g>
+    <g fill="#4a7300"><rect x="170" y="22" width="63" height="28" rx="4"/><rect x="170" y="72" width="31.5" height="28" rx="4"/><rect x="170" y="122" width="15.75" height="28" rx="4"/></g>
+    <g fill="#76B900"><rect x="170" y="182" width="351" height="28" rx="4"/><rect x="170" y="232" width="175.5" height="28" rx="4"/><rect x="170" y="282" width="87.75" height="28" rx="4"/></g>
+    <g fill="#d6d6d6" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700">
+      <text x="242" y="42">42 GB</text><text x="212" y="92">21 GB</text><text x="186" y="142">10.5 GB</text>
+      <text x="530" y="202">234 GB</text><text x="536" y="252">117 GB</text><text x="262" y="302">58.5 GB</text>
+    </g>
+  </svg>
+  <div class="note">Raw BF16 weight sizes: 2 bytes per parameter at 16-bit, 1 at 8-bit, 0.5 at 4-bit. Real files add overhead, and gpt-oss ships in a compact quantized format.</div>
+</div>
+
+<p>This arithmetic explains why gpt-oss-20b, with 21 billion total parameters, is reported to need about 16 GB of memory. Its MoE design and compact format bring the footprint down to laptop range. Efficiency in the letter's sense is a memory and cost story as much as a quality story.</p>
+<p class="punch">Inference is where AI becomes an operating cost. Memory decides which hardware can afford it.</p>
+</section>
+
+<section id="distill">
+<h2>Distillation: teaching with a big model's answers</h2>
+<p><strong>Knowledge distillation</strong> trains a smaller "student" to imitate a larger "teacher". Hinton, Vinyals and Dean formalised it in 2015 (<em>Distilling the Knowledge in a Neural Network</em>). The key insight: a teacher's <em>soft probabilities</em> carry more information than its final answer. If a teacher says an image is 70% dog, 25% wolf and 5% cat, those ratios teach the student how dogs relate to wolves.</p>
+
+<div class="fig">
+  <div class="cap">Fig 4 · The distillation pipeline</div>
+  <svg viewBox="0 0 700 170" role="img" aria-label="Teacher to soft targets to student">
+    <g fill="#0f0f0f" stroke="#76B900" stroke-width="1.5">
+      <rect x="10" y="50" width="170" height="70" rx="10"/><rect x="265" y="50" width="170" height="70" rx="10" stroke="#8ED100"/><rect x="520" y="50" width="170" height="70" rx="10"/>
+    </g>
+    <g font-family="Inter,sans-serif" font-size="15" fill="#d6d6d6" text-anchor="middle">
+      <text x="95" y="80" font-weight="700" fill="#76B900">TEACHER</text><text x="95" y="102">large, strong</text>
+      <text x="350" y="80" font-weight="700" fill="#8ED100">SOFT TARGETS</text><text x="350" y="102">dog 70 · wolf 25 · cat 5</text>
+      <text x="605" y="80" font-weight="700" fill="#76B900">STUDENT</text><text x="605" y="102">small, cheap</text>
+    </g>
+    <g stroke="#76B900" stroke-width="2"><line x1="180" y1="85" x2="265" y2="85"/><line x1="435" y1="85" x2="520" y2="85"/></g>
+    <text x="350" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#9a9a9a">loss = α · KL(soft) + (1−α) · CE(labels)</text>
+  </svg>
+</div>
+
+<div class="scenario">
+  <div class="label">Relatable scenario</div>
+  A master chef teaches her palate, not just the menu. A junior cook who learns "this sauce is 70% acidic, 30% sweet, and here is why" learns faster than one who copies only the final plate. Distillation transfers that palate.
+</div>
+
+<h3>The distillation loss, in code</h3>
+<p>The classic loss combines two terms: match the teacher's softened distribution, and still learn the true labels. The temperature <code>T</code> softens both distributions. The <code>T²</code> factor keeps gradient sizes comparable.</p>
+<div class="code">
+  <div class="bar"><span class="dot"></span><span class="dot g"></span><span class="dot"></span><span class="name">distill_loss.py</span></div>
+<pre><span class="k">import</span> torch
+<span class="k">import</span> torch.nn.functional <span class="k">as</span> F
+
+<span class="k">def</span> <span class="f">distillation_loss</span>(student_logits, teacher_logits, labels, T=2.0, alpha=0.5):
+    <span class="c"># 1. soft targets: match the teacher's softened distribution</span>
+    soft = F.kl_div(F.log_softmax(student_logits / T, dim=-1),
+                    F.softmax(teacher_logits / T, dim=-1),
+                    reduction=<span class="n">"batchmean"</span>) * (T * T)
+    <span class="c"># 2. hard targets: still learn the true labels</span>
+    hard = F.cross_entropy(student_logits, labels)
+    <span class="k">return</span> alpha * soft + (1 - alpha) * hard
+
+torch.manual_seed(0)
+loss = distillation_loss(torch.randn(4, 3), torch.randn(4, 3),
+                         torch.tensor([0, 2, 1, 0]))
+print(<span class="n">"loss:"</span>, round(loss.item(), 4))
+<span class="out">loss: (one scalar; exact value depends on the seed)</span></pre>
+</div>
+
+<h3>What the numbers say: DeepSeek-R1 and its distilled family</h3>
+<p>DeepSeek-R1 (January 2025) is the clearest recent example of distillation at scale. The authors released R1 plus six dense models distilled from it: 1.5B, 7B, 8B, 14B, 32B and 70B, built on Qwen and Llama bases. Their headline finding: <strong>distilling a large model's reasoning into a small model beat running reinforcement learning on that small model.</strong> For Qwen2.5-32B, RL alone reached about 47.0% on AIME 2024, while distillation from R1 reached 72.6%.</p>
+
+<div class="fig">
+  <div class="cap">Fig 5 · AIME 2024 pass@1 (higher is better)</div>
+  <svg viewBox="0 0 800 340" role="img" aria-label="Bar chart of AIME 2024 scores">
+    <g font-family="Inter,sans-serif" font-size="14" fill="#d6d6d6">
+      <text x="0" y="36">DeepSeek-R1 (teacher)</text>
+      <text x="0" y="74">OpenAI o1-1217 (closed)</text>
+      <text x="0" y="112">R1-Distill-Qwen-32B</text>
+      <text x="0" y="150">R1-Distill-Llama-70B</text>
+      <text x="0" y="188">OpenAI o1-mini (closed)</text>
+      <text x="0" y="226">R1-Distill-Qwen-7B</text>
+      <text x="0" y="264">R1-Distill-Llama-8B</text>
+      <text x="0" y="302">QwQ-32B-Preview</text>
+    </g>
+    <g fill="#76B900">
+      <rect x="250" y="20" width="478" height="26" rx="4"/>
+      <rect x="250" y="58" width="475" height="26" rx="4" fill="#5b8c00"/>
+      <rect x="250" y="96" width="435" height="26" rx="4"/>
+      <rect x="250" y="134" width="420" height="26" rx="4" fill="#5b8c00"/>
+      <rect x="250" y="172" width="382" height="26" rx="4" fill="#5b8c00"/>
+      <rect x="250" y="210" width="333" height="26" rx="4"/>
+      <rect x="250" y="248" width="302" height="26" rx="4" fill="#5b8c00"/>
+      <rect x="250" y="286" width="264" height="26" rx="4" fill="#5b8c00"/>
+    </g>
+    <g font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#fff">
+      <text x="738" y="38">79.8</text><text x="735" y="76">79.2</text><text x="693" y="114">72.6</text><text x="678" y="152">70.0</text>
+      <text x="640" y="190">63.6</text><text x="591" y="228">55.5</text><text x="560" y="266">50.4</text><text x="522" y="304">44.0</text>
+    </g>
+  </svg>
+  <div class="note">Reported AIME 2024 pass@1 scores from the DeepSeek-R1 paper and model cards. Bright green marks DeepSeek's models; the darker green marks the comparison models.</div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="big">72.6%</div><div class="small">AIME 2024, R1-Distill-Qwen-32B</div></div>
+  <div class="stat"><div class="big">94.3%</div><div class="small">MATH-500, same 32B model</div></div>
+  <div class="stat"><div class="big">1691</div><div class="small">Codeforces rating, same 32B model</div></div>
+</div>
+
+<table>
+  <tr><th>Model</th><th>Params</th><th>AIME 2024</th><th>MATH-500</th><th>GPQA Diamond</th><th>LiveCodeBench</th></tr>
+  <tr><td>R1-Distill-Qwen-7B</td><td class="num">7B</td><td class="num">55.5%</td><td class="num">92.8%</td><td class="num">49.1%</td><td class="num">37.6%</td></tr>
+  <tr><td>R1-Distill-Qwen-32B</td><td class="num">32B</td><td class="num">72.6%</td><td class="num">94.3%</td><td class="num">62.1%</td><td class="num">57.2%</td></tr>
+  <tr><td>R1-Distill-Llama-70B</td><td class="num">70B</td><td class="num">70.0%</td><td class="num">94.5%</td><td class="num">65.2%</td><td class="num">57.5%</td></tr>
+</table>
+
+<div class="callout warn"><strong>Honest caveat:</strong> benchmark scores are not the whole story. Distillation transfers answers and reasoning patterns, not the teacher's full capability. Scores also depend on sampling settings, so check how each one was produced (pass@1, averaged, or majority vote).</div>
+
+<h3>Why this is in the letter</h3>
+<p>The letter calls distillation "a widely used technique for model improvement, evaluation, and validation". It also separates the technique from "unlawful efforts to extract value from closed models". These are different things. Distillation is a method. Whether a particular use is lawful depends on licences, terms of service and law. This guide covers the method only.</p>
+</section>
+
+<section id="moe">
+<h2>Mixture of Experts and quantization</h2>
+<p>A dense model uses every parameter for every token. A <strong>Mixture of Experts (MoE)</strong> model splits its feed-forward layers into many experts, and a small router picks only a few for each token. Total size can be large while the work per token stays small.</p>
+
+<div class="fig">
+  <div class="cap">Fig 6 · Routing one token through 4 experts (2 active)</div>
+  <svg viewBox="0 0 700 280" role="img" aria-label="Mixture of experts routing diagram">
+    <rect x="10" y="110" width="110" height="60" rx="8" fill="#0f0f0f" stroke="#76B900"/>
+    <text x="65" y="146" text-anchor="middle" fill="#e6e6e6" font-family="JetBrains Mono,monospace" font-size="14">token</text>
+    <rect x="170" y="110" width="110" height="60" rx="8" fill="#0f0f0f" stroke="#8ED100"/>
+    <text x="225" y="146" text-anchor="middle" fill="#8ED100" font-family="JetBrains Mono,monospace" font-size="14">router</text>
+    <line x1="120" y1="140" x2="170" y2="140" stroke="#76B900" stroke-width="2"/>
+    <g font-family="JetBrains Mono,monospace" font-size="14" text-anchor="middle">
+      <rect x="340" y="20" width="130" height="46" rx="6" fill="#0f0f0f" stroke="#262626"/><text x="405" y="48" fill="#6b6b6b">expert 1</text>
+      <rect x="340" y="80" width="130" height="46" rx="6" fill="#0f0f0f" stroke="#76B900" stroke-width="2"/><text x="405" y="108" fill="#76B900">expert 2 ✓</text>
+      <rect x="340" y="140" width="130" height="46" rx="6" fill="#0f0f0f" stroke="#262626"/><text x="405" y="168" fill="#6b6b6b">expert 3</text>
+      <rect x="340" y="200" width="130" height="46" rx="6" fill="#0f0f0f" stroke="#76B900" stroke-width="2"/><text x="405" y="228" fill="#76B900">expert 4 ✓</text>
+    </g>
+    <path d="M280 140 L340 103" stroke="#76B900" stroke-width="2" fill="none"/>
+    <path d="M280 140 L340 223" stroke="#76B900" stroke-width="2" fill="none"/>
+    <rect x="530" y="95" width="150" height="90" rx="8" fill="#0f0f0f" stroke="#76B900"/>
+    <text x="605" y="130" text-anchor="middle" fill="#e6e6e6" font-family="JetBrains Mono,monospace" font-size="14">output</text>
+    <text x="605" y="155" text-anchor="middle" fill="#9a9a9a" font-family="JetBrains Mono,monospace" font-size="12">2 of 4 active</text>
+    <path d="M470 103 L530 130" stroke="#76B900" stroke-width="2" fill="none"/>
+    <path d="M470 223 L530 170" stroke="#76B900" stroke-width="2" fill="none"/>
+    <text x="10" y="270" font-family="JetBrains Mono,monospace" font-size="12" fill="#9a9a9a">Illustrative. gpt-oss uses 128 experts with 4 active per token.</text>
+  </svg>
+</div>
+
+<p>This is why the gpt-oss numbers look odd at first glance. Total parameters describe memory. Active parameters describe work per token. Always report both.</p>
+
+<div class="fig">
+  <div class="cap">Fig 7 · Total vs active parameters (billions)</div>
+  <svg viewBox="0 0 700 220" role="img" aria-label="Bar chart comparing total and active parameters">
+    <g font-family="Inter,sans-serif" font-size="14" fill="#d6d6d6">
+      <text x="0" y="48">gpt-oss-120b total</text><text x="0" y="98">gpt-oss-120b active</text>
+      <text x="0" y="158">gpt-oss-20b total</text><text x="0" y="208">gpt-oss-20b active</text>
+    </g>
+    <rect x="230" y="28" width="468" height="28" rx="4" fill="#4a7300"/>
+    <rect x="230" y="78" width="20.4" height="28" rx="4" fill="#76B900"/>
+    <rect x="230" y="138" width="84" height="28" rx="4" fill="#4a7300"/>
+    <rect x="230" y="188" width="14.4" height="28" rx="4" fill="#76B900"/>
+    <g font-family="JetBrains Mono,monospace" font-size="14" font-weight="700" fill="#fff">
+      <text x="708" y="48" text-anchor="end">117B</text><text x="258" y="98">5.1B</text>
+      <text x="322" y="158">21B</text><text x="252" y="208">3.6B</text>
+    </g>
+  </svg>
+  <div class="note">Total vs active parameters as reported by OpenAI for gpt-oss (August 2025). Active is about 4% of total for the 120B model.</div>
+</div>
+
+<h3>Quantization: trading precision for reach</h3>
+<p><strong>Quantization</strong> stores weights with fewer bits. Figure 3 showed the size effect. Quality loss depends on the method and the task, so measure after quantizing rather than assuming it is free.</p>
+
+<div class="stat-row">
+  <div class="stat"><div class="big">117B</div><div class="small">total parameters, gpt-oss-120b</div></div>
+  <div class="stat"><div class="big">5.1B</div><div class="small">active per token, gpt-oss-120b</div></div>
+  <div class="stat"><div class="big">~16 GB</div><div class="small">reported memory, gpt-oss-20b</div></div>
+  <div class="stat"><div class="big">128K</div><div class="small">context window, both sizes</div></div>
+</div>
+</section>
+
+<section id="safety">
+<h2>Safety, security and red teaming</h2>
+<p><strong>Safety</strong> is about a model behaving as intended: refusing harmful requests, avoiding fabricated claims. <strong>Security</strong> is about attackers: stealing weights, extracting data, injecting malicious instructions. A model can be safe in conversation and still insecure once deployed.</p>
+<p><strong>Red teaming</strong> is structured adversarial testing: trying to make a model fail so the weaknesses get fixed before users find them. <strong>Benchmark contamination</strong> happens when test questions leak into training data and inflate scores.</p>
+
+<p class="punch">The letter's core safety argument: open weights let many independent teams test the same model. Closed models can only be tested by their owner.</p>
+
+<div class="scenario">
+  <div class="label">Relatable scenario</div>
+  A vault whose blueprints are secret may be secure, or may have a flaw nobody outside can see. A vault with published blueprints invites many locksmiths to try to break it. Neither is automatically safe. The argument is about who gets to check the work.
+</div>
+
+<h3>The counterargument, stated fairly</h3>
+<p>The same openness that enables testing also enables misuse. Once weights are public, the developer cannot retract them, and anyone can fine-tune them, including for harm. OpenAI's gpt-oss release addressed this directly: it reported testing deliberately harmful fine-tuning and said the models did not reach its high-risk thresholds in the areas it assessed. That is a specific, measured claim. It does not mean all open weights are safe.</p>
+
+<div class="fig">
+  <div class="cap">Fig 8 · The trade-off in one view</div>
+  <svg viewBox="0 0 700 200" role="img" aria-label="Two columns of benefits and risks of open weights">
+    <rect x="10" y="10" width="320" height="180" rx="8" fill="#0f0f0f" stroke="#76B900"/>
+    <rect x="370" y="10" width="320" height="180" rx="8" fill="#0f0f0f" stroke="#d9a400"/>
+    <g font-family="Inter,sans-serif" font-size="15" fill="#d6d6d6">
+      <text x="30" y="46" font-weight="700" fill="#76B900" font-family="JetBrains Mono,monospace">+ BENEFITS</text>
+      <text x="30" y="80">Many teams can test and audit</text>
+      <text x="30" y="108">Defenders get comparable tools</text>
+      <text x="30" y="136">Users can run models locally</text>
+      <text x="30" y="164">No single point of failure</text>
+      <text x="390" y="46" font-weight="700" fill="#d9a400" font-family="JetBrains Mono,monospace">− RISKS</text>
+      <text x="390" y="80">Weights cannot be recalled</text>
+      <text x="390" y="108">Anyone can fine-tune them</text>
+      <text x="390" y="136">Safeguards can be removed</text>
+      <text x="390" y="164">Misuse is hard to trace</text>
+    </g>
+  </svg>
+  <div class="note">Summary of arguments made in the letter and in the release coverage. Both columns are real; the open question is the balance.</div>
+</div>
+
+<div class="grid">
+  <div class="card"><b>SAFETY</b>Model behaves as intended.</div>
+  <div class="card"><b>SECURITY</b>Attackers cannot abuse the system.</div>
+  <div class="card"><b>RED TEAMING</b>Structured attempts to break the model.</div>
+  <div class="card"><b>CONTAMINATION</b>Test answers leak into training data.</div>
+</div>
+</section>
+
+<section id="ecosystem">
+<h2>Sovereignty, lock-in and the application layer</h2>
+<p><strong>Lock-in</strong> happens when switching providers is too costly: prompts, fine-tunes, data formats and workflows are tied to one API. <strong>Portability</strong> is the opposite. <strong>Sovereign AI</strong> generally means an organisation or country can run, inspect and control the AI it depends on, without relying on one external provider.</p>
+<p>The <strong>application layer</strong> is where products are built on top of models: retrieval systems, agents, domain tools. The <strong>model layer</strong> is the models themselves. The letter's point is that competition at both layers matters, and open weights let many companies compete at the application layer without first training a frontier model.</p>
+<p class="punch">Lock-in is a cost you pay later. Portability is a choice you keep now.</p>
+</section>
+
+<section id="cases">
+<h2>Four case studies</h2>
+
+<h3>Case 1 · GPT-2 and the staged release (2019)</h3>
+<p>OpenAI initially withheld the full GPT-2 model, citing misuse concerns, and released it in stages over the following months while studying its effects. The debate was about <em>how much</em> to release and when, not whether openness has value. OpenAI later described gpt-oss (2025) as its first open-weight language models since GPT-2.</p>
+<p><em>Key terms: staged release, misuse risk.</em></p>
+
+<h3>Case 2 · DeepSeek-R1 and its distilled family (January 2025)</h3>
+<p>DeepSeek released R1 with open weights and six distilled dense models. According to the authors, the distilled 32B model outperformed o1-mini on several reasoning benchmarks, and the distilled 14B model beat QwQ-32B-Preview by a large margin. The practical lesson: a well-distilled 7B to 32B model can run on hardware many developers already own.</p>
+<p><em>Key terms: distillation, active parameters, benchmark evaluation.</em></p>
+
+<h3>Case 3 · gpt-oss (August 5, 2025)</h3>
+<p>OpenAI released gpt-oss-120b and gpt-oss-20b under Apache 2.0, its first open-weight language models since GPT-2. The 120B model activates 5.1B of 117B parameters per token and reportedly runs on a single 80 GB GPU. The 20B model has 21B total parameters, activates 3.6B, and reportedly needs about 16 GB of memory. OpenAI said the release was reviewed by external experts, and that the models did not reach high-risk thresholds in its preparedness evaluations, even after adversarial fine-tuning.</p>
+<p><em>Key terms: open weight vs open source, MoE, Apache 2.0, preparedness evaluation.</em></p>
+
+<h3>Case 4 · The open-source ancestor</h3>
+<p>The letter opens with open-source software, and the analogy is historically grounded: open-source code now runs much of the internet's infrastructure. The lesson most often drawn is that inspectability and many contributors raise quality. The comparison is imperfect, though. Model weights are the result of training, not human-readable source code, which makes independent auditing harder in practice.</p>
+<p><em>Key terms: open source, auditability, community review.</em></p>
+</section>
+
+<section id="try">
+<h2>Try it yourself</h2>
+<p>A ten-minute checklist that turns this guide into practice:</p>
+<ul class="checklist">
+  <li>Pick one open-weight model and read its licence before anything else.</li>
+  <li>Compute its weight memory at 16-bit, 8-bit and 4-bit with the snippet above.</li>
+  <li>Check whether it is dense or MoE. If MoE, record total and active parameters.</li>
+  <li>Run the distillation loss on a toy dataset and watch how <code>T</code> changes the student.</li>
+  <li>Take one benchmark claim and find its source. Note the sampling method.</li>
+</ul>
+</section>
+
+<section id="glossary">
+<h2>Glossary</h2>
+<table>
+  <tr><th>Term</th><th>Plain-English meaning</th></tr>
+  <tr><td><strong>Parameter / weight</strong></td><td>An adjustable number inside a model. The learned knowledge lives here.</td></tr>
+  <tr><td><strong>Open weights</strong></td><td>Trained parameters anyone can download, inspect, modify and run. Licence terms vary.</td></tr>
+  <tr><td><strong>Open source (OSI)</strong></td><td>Code and enough information to rebuild the work, under an approved licence.</td></tr>
+  <tr><td><strong>Frontier model</strong></td><td>The most capable models available at a given time.</td></tr>
+  <tr><td><strong>Closed model</strong></td><td>Accessed only via API or app. Weights are not published.</td></tr>
+  <tr><td><strong>Inference</strong></td><td>Running a trained model to produce outputs.</td></tr>
+  <tr><td><strong>Distillation</strong></td><td>Training a student to imitate a teacher's outputs or probabilities.</td></tr>
+  <tr><td><strong>Fine-tuning</strong></td><td>Further training a pretrained model on task-specific data.</td></tr>
+  <tr><td><strong>Quantization</strong></td><td>Storing weights at lower numerical precision to cut memory and cost.</td></tr>
+  <tr><td><strong>Mixture of Experts (MoE)</strong></td><td>An architecture where a router activates only some expert sub-networks per token.</td></tr>
+  <tr><td><strong>Active parameters</strong></td><td>Parameters used for one token. In MoE models, this is smaller than the total.</td></tr>
+  <tr><td><strong>Red teaming</strong></td><td>Structured attempts to make a model fail so weaknesses can be fixed.</td></tr>
+  <tr><td><strong>Benchmark contamination</strong></td><td>Test data leaking into training data, inflating scores.</td></tr>
+  <tr><td><strong>Lock-in</strong></td><td>Being unable to switch providers without high cost.</td></tr>
+  <tr><td><strong>Sovereign AI</strong></td><td>Running and controlling AI without depending on one external provider.</td></tr>
+  <tr><td><strong>Application layer</strong></td><td>Products built on top of models, such as search, agents and domain tools.</td></tr>
+</table>
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<p>Figures were checked against the sources below at the time of writing. Benchmark scores change with evaluation settings, so re-check any number before you cite it in production work.</p>
+<ul class="refs">
+  <li>Hinton, G., Vinyals, O., &amp; Dean, J. (2015). <em>Distilling the Knowledge in a Neural Network.</em> arXiv:1503.02531.</li>
+  <li>DeepSeek-AI (2025). <em>DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning.</em> arXiv:2501.12948. <a href="https://arxiv.org/abs/2501.12948">https://arxiv.org/abs/2501.12948</a></li>
+  <li>DeepSeek-R1-Distill model cards, Hugging Face (benchmark tables for 7B to 70B variants). <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B">https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B</a></li>
+  <li>OpenAI (August 5, 2025). <em>Introducing gpt-oss.</em> <a href="https://openai.com/index/introducing-gpt-oss/">https://openai.com/index/introducing-gpt-oss/</a></li>
+  <li>InfoQ (August 2025). <em>OpenAI Releases gpt-oss-120b and gpt-oss-20b, Open-Weight Language Models for Local Deployment.</em></li>
+  <li>The Register (August 5, 2025). <em>OpenAI makes good on its name, launches first open weights language models since GPT-2.</em></li>
+  <li>Open Source Initiative. <em>The Open Source AI Definition.</em></li>
+  <li><em>Open Weights and American AI Leadership</em> (July 24, 2026), the letter this guide is based on.</li>
+</ul>
+</section>
+
+<section id="feedback">
+<h2>Send feedback</h2>
+<div class="fb-wrap">
+  <p class="lede">Found a wrong number, a confusing term, or a better example? Tell me. Every note goes straight to the author.</p>
+  <form class="fb-form" id="fbForm" novalidate>
+    <div class="fb-row">
+      <div class="fb-field">
+        <label for="fbName">Your name</label>
+        <input id="fbName" name="name" type="text" maxlength="80" placeholder="Optional" autocomplete="name">
+      </div>
+      <div class="fb-field">
+        <label for="fbEmail">Your email</label>
+        <input id="fbEmail" name="email" type="email" maxlength="120" placeholder="Optional, if you want a reply" autocomplete="email">
+      </div>
+    </div>
+    <div class="fb-field">
+      <label for="fbType">Feedback type</label>
+      <select id="fbType" name="type">
+        <option>General comment</option>
+        <option>Factual correction</option>
+        <option>Unclear explanation</option>
+        <option>Suggest a case study</option>
+        <option>Design or formatting</option>
+      </select>
+    </div>
+    <div class="fb-field">
+      <span class="lbl">How useful was this guide?</span>
+      <div class="fb-stars" role="radiogroup" aria-label="Rating">
+        <input type="radio" id="r1" name="rating" value="1"><label for="r1">1</label>
+        <input type="radio" id="r2" name="rating" value="2"><label for="r2">2</label>
+        <input type="radio" id="r3" name="rating" value="3"><label for="r3">3</label>
+        <input type="radio" id="r4" name="rating" value="4"><label for="r4">4</label>
+        <input type="radio" id="r5" name="rating" value="5" checked><label for="r5">5</label>
+      </div>
+    </div>
+    <div class="fb-field">
+      <label for="fbMessage">Your feedback</label>
+      <textarea id="fbMessage" name="message" maxlength="1500" required placeholder="Tell me what worked, what didn't, or what to fix. Keep it under 1,500 characters."></textarea>
+      <div class="hint" id="fbCount">0 / 1500</div>
+    </div>
+    <div class="fb-actions">
+      <button class="fb-btn" type="submit">Send feedback</button>
+      <p class="fb-note">Feedback is delivered directly to <a href="mailto:shreyasj.jadhav@gmail.com">shreyasj.jadhav@gmail.com</a>. If direct sending fails, your email app opens as a backup.</p>
+    </div>
+    <div class="fb-status" id="fbStatus" role="status" aria-live="polite"></div>
+  </form>
+</div>
+</section>
+</main>
+
+<footer>
+  Shreyas Sanjay Jadhav · written for engineers and curious readers · <a href="#top">back to top</a>
+</footer>
+
+<script>
+addEventListener('scroll',function(){var h=document.documentElement;var p=scrollY/(h.scrollHeight-h.clientHeight)*100;document.getElementById('bar').style.width=Math.min(100,p)+'%';});
+</script>
+<script>
+(function () {
+  var form = document.getElementById('fbForm');
+  if (!form) return;
+  var msg = document.getElementById('fbMessage');
+  var count = document.getElementById('fbCount');
+  var status = document.getElementById('fbStatus');
+  var TO = 'shreyasj.jadhav@gmail.com';
+
+  msg.addEventListener('input', function () {
+    count.textContent = msg.value.length + ' / 1500';
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = msg.value.trim();
+    if (!text) {
+      status.style.color = '#d9a400';
+      status.textContent = 'Please write a short message before sending.';
+      msg.focus();
+      return;
+    }
+    var f = new FormData(form);
+    var rating = f.get('rating') || 'not rated';
+    var type = f.get('type') || 'General comment';
+    var name = (f.get('name') || '').trim() || 'Anonymous';
+    var email = (f.get('email') || '').trim() || 'not provided';
+
+    var subject = '[Blog feedback] ' + type + ' (' + rating + '/5)';
+    var body = 'Blog: Open Weights, Explained\n' +
+               'Rating: ' + rating + '/5\n' +
+               'Type: ' + type + '\n' +
+               'Name: ' + name + '\n' +
+               'Reply-to: ' + email + '\n\n' +
+               'Feedback:\n' + text + '\n';
+
+    var url = 'mailto:' + TO +
+              '?subject=' + encodeURIComponent(subject) +
+              '&body=' + encodeURIComponent(body);
+
+    status.style.color = '#76B900';
+    status.textContent = 'Sending your feedback...';
+    var data = new FormData(form);
+    data.append('_subject', subject);
+    if (email !== 'not provided') data.append('_replyto', email);
+
+    fetch('https://formspree.io/f/xljbgpzr', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('Formspree ' + r.status);
+      status.style.color = '#76B900';
+      status.textContent = 'Thank you! Your feedback has been sent.';
+      form.reset();
+      count.textContent = '0 / 1500';
+    })
+    .catch(function () {
+      status.style.color = '#d9a400';
+      status.textContent = 'Direct sending failed. Opening your email app instead.';
+      window.location.href = url;
+    });
+  });
+})();
+</script>
+</body>
+</html>
