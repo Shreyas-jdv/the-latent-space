@@ -108,7 +108,7 @@ function buildPageMarkup(index) {
   const item = notebookNotes[index];
   return `
     <div class="page-topline">
-      <span>FIELD NOTES</span>
+      <span>NOTES</span>
       <span>${formatPageNumber(index)}</span>
     </div>
     <div class="page-content">
