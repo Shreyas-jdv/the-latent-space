@@ -89,6 +89,7 @@ const notebookNotes = [
 
 const notebookPage = document.getElementById("notebookPage");
 const notebookPageContent = document.getElementById("notebookPageContent");
+const pageFlip = document.getElementById("pageFlip");
 const pageNote = document.getElementById("pageNote");
 const pageCategory = document.getElementById("pageCategory");
 const pageNumber = document.getElementById("pageNumber");
@@ -96,48 +97,74 @@ const pageNumber = document.getElementById("pageNumber");
 let currentNoteIndex = 0;
 let isTurning = false;
 
+function formatPageNumber(index) {
+  const page = String(index + 1).padStart(2, "0");
+  const total = String(notebookNotes.length).padStart(2, "0");
+  return `${page} / ${total}`;
+}
+
+// Markup for a page copy used for the turning leaf (no ids, so they stay unique).
+function buildPageMarkup(index) {
+  const item = notebookNotes[index];
+  return `
+    <div class="page-topline">
+      <span>FIELD NOTES</span>
+      <span>${formatPageNumber(index)}</span>
+    </div>
+    <div class="page-content">
+      <span class="handwritten-note">${item.note}</span>
+      <span class="note-underline"></span>
+    </div>
+    <div class="page-footer">
+      <span>${item.category}</span>
+    </div>
+  `;
+}
+
+// Writes the current note into the live page.
 function updateNotebookContent() {
   if (!pageNote || !pageCategory || !pageNumber) return;
 
-  const note = notebookNotes[currentNoteIndex];
-  const page = String(currentNoteIndex + 1).padStart(2, "0");
-  const total = String(notebookNotes.length).padStart(2, "0");
-
-  pageNote.textContent = note.note;
-  pageCategory.textContent = note.category;
-  pageNumber.textContent = `${page} / ${total}`;
+  const item = notebookNotes[currentNoteIndex];
+  pageNote.textContent = item.note;
+  pageCategory.textContent = item.category;
+  pageNumber.textContent = formatPageNumber(currentNoteIndex);
 }
 
 function turnNotebookPage() {
   if (!notebookPage || !notebookPageContent || isTurning) return;
 
-  isTurning = true;
-  currentNoteIndex = (currentNoteIndex + 1) % notebookNotes.length;
-
-  if (reducedMotion) {
+  // Reduced motion: change the note without animating.
+  if (reducedMotion || !pageFlip) {
+    currentNoteIndex = (currentNoteIndex + 1) % notebookNotes.length;
     updateNotebookContent();
-    isTurning = false;
     return;
   }
 
-  // Restart the page-turn animation.
-  notebookPageContent.classList.remove("turning");
-  void notebookPageContent.offsetWidth;
-  notebookPageContent.classList.add("turning");
+  isTurning = true;
 
-  // Swap the text while the page is turned away (halfway through the 0.55s animation).
-  setTimeout(updateNotebookContent, 275);
+  // The current page lifts off as the leaf...
+  pageFlip.innerHTML = buildPageMarkup(currentNoteIndex);
 
-  // Unlock after the animation finishes. A timer is used instead of
-  // animationend so the page can't get stuck if the animation never fires.
+  // ...and the next page is already waiting underneath it.
+  currentNoteIndex = (currentNoteIndex + 1) % notebookNotes.length;
+  updateNotebookContent();
+
+  // Restart the turn animation.
+  pageFlip.classList.remove("turning");
+  void pageFlip.offsetWidth;
+  pageFlip.classList.add("turning");
+
+  // Clean up once the turn finishes.
   setTimeout(() => {
-    notebookPageContent.classList.remove("turning");
+    pageFlip.classList.remove("turning");
+    pageFlip.innerHTML = "";
     isTurning = false;
-  }, 560);
+  }, 820);
 }
 
 if (notebookPage) {
-  // Clicking the paper turns the page.
+  // Click the paper to turn the page.
   notebookPage.addEventListener("click", turnNotebookPage);
 
   // Keyboard support: Enter or Space.
