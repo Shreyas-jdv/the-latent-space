@@ -135,17 +135,124 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .hero-footnote { margin-top: 62px; color: #777870; font: 9px var(--mono); letter-spacing: 1px; }
 .hero-footnote span { color: var(--orange); margin-right: 12px; }
 
+
+/* HERO ART: prevent notebook clipping */
 .hero-art {
-  height: 390px;
-  max-width: 470px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  justify-self: end;
+  min-width: 0;
+  height: auto;
+  min-height: 460px;
+  padding: 30px 20px;
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
+/* Notebook wrapper */
+.notebook-scene {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  padding: 15px 25px;
+  box-sizing: border-box;
+  perspective: 1200px;
+}
+
+/* Notebook body */
+.notebook {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
+  padding: 12px 12px 12px 0;
+  background: #d8d1c5;
+  border-radius: 8px 13px 13px 8px;
+  box-shadow:
+    15px 20px 35px rgba(0, 0, 0, 0.16),
+    4px 5px 0 #b8b0a4;
+  transform: rotate(-2deg);
+}
+
+/* Paper */
+.notebook-pages {
+  width: 100%;
+  min-height: 365px;
+  margin-left: 18px;
+  box-sizing: border-box;
   overflow: hidden;
-  background: #f0eee8;
-  border: 1px solid #e8e5dd;
-  border-radius: 3px;
-  isolation: isolate;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      rgba(105, 139, 173, 0.17) 32px
+    ),
+    #fffdf7;
+  border-radius: 3px 8px 8px 3px;
+}
+
+/* Page content */
+.notebook-page {
+  width: 100%;
+  min-height: 365px;
+  box-sizing: border-box;
+  padding: 25px 25px 20px 34px;
+}
+
+/* Spiral */
+.notebook-spiral {
+  position: absolute;
+  z-index: 3;
+  left: 3px;
+  top: 19px;
+  bottom: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Controls */
+.notebook-controls,
+.notebook-hint {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-art {
+    min-height: 420px;
+  }
+
+  .notebook-scene {
+    max-width: 390px;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-art {
+    min-height: auto;
+    padding: 25px 10px 40px;
+  }
+
+  .notebook-scene {
+    max-width: 360px;
+    padding: 10px 15px;
+  }
+
+  .notebook-pages,
+  .notebook-page {
+    min-height: 320px;
+  }
+}
+
 }
 .art-grid {
   position: absolute; inset: 0;
