@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,81 +6,78 @@
   <meta name="theme-color" content="#f8f7f4" />
   <meta name="description" content="The Latent Space is an AI knowledge journal exploring machine learning, deep learning, LLMs, AI agents, and the engineering behind intelligent systems." />
   <title>The Latent Space | An AI Knowledge Journal</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="site-header" id="home">
-        <a class="brand" href="index.html" aria-label="The Latent Space home">
-        <img
-          class="brand-logo"
-          src="assets\The latent Space Logo.png"
-           alt="The Latent Space pumpkin mascot"
-        />
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Latent Space home">
+      <img
+        class="brand-logo"
+        src="assets/The latent Space Logo.png"
+        alt="The Latent Space pumpkin mascot"
+      />
 
-        <span class="brand-copy">
-          <span class="brand-name">The Latent Space</span>
-          <span class="brand-tagline">
-            Journal by Shreyas Sanjay Jadhav
-          </span>
+      <span class="brand-copy">
+        <span class="brand-name">The Latent Space</span>
+        <span class="brand-tagline">
+          Journal by Shreyas Sanjay Jadhav
         </span>
+      </span>
     </a>
 
-
-
     <button
-        class="menu-toggle"
-        id="menuToggle"
-        type="button"
-        aria-label="Toggle navigation"
-        aria-controls="mainNav"
-        aria-expanded="false"
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-controls="mainNav"
+      aria-expanded="false"
     >
-        <span></span>
-        <span></span>
+      <span></span>
+      <span></span>
     </button>
 
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-        <div class="nav-links">
-          <a href="#explore">Explore</a>
-          <a href="#about">About</a>
-    <!-- <a href="#topics">Topics</a> -->
-        </div>
+      <div class="nav-links">
+        <a href="#explore">Explore</a>
+        <a href="#about">About</a>
+        <!-- <a href="#topics">Topics</a> -->
+      </div>
 
-        <div class="nav-actions">
-         <!--
-          <button
-           class="nav-button owner-button"
-            id="ownerToggle"
-            type="button"
-          >
-            <span aria-hidden="true">↗</span>
-            Owner
-          </button>
-          -->
-          <a class="nav-button read-button" href="#explore">
-           Read the blog
-            <span aria-hidden="true">↘</span>
-          </a>
-        </div>
+      <div class="nav-actions">
+        <!--
+        <button
+          class="nav-button owner-button"
+          id="ownerToggle"
+          type="button"
+        >
+          <span aria-hidden="true">↗</span>
+          Owner
+        </button>
+        -->
+        <a class="nav-button read-button" href="#explore">
+          Read the blog
+          <span aria-hidden="true">↘</span>
+        </a>
+      </div>
     </nav>
-    </header>
-
-
+  </header>
 
   <main id="home">
+
+    <!-- HERO -->
     <section class="hero page-wrap">
       <div class="hero-copy reveal">
-        <div class="eyebrow"><span class="live-dot"></span> AN AI ENGINEER'S THINKING SPACE </div>
-        <h1>Ideas worth keeping. <br /> Thinking beyond the <span> obvious.</span></h1>
+        <div class="eyebrow"><span class="live-dot"></span> AN AI ENGINEER'S THINKING SPACE</div>
+        <h1>Ideas worth keeping. <br /> Thinking beyond the <span>obvious.</span></h1>
         <p class="hero-description">
-          This is where I document the experiments, ideas, failures, and discoveries 
+          This is where I document the experiments, ideas, failures, and discoveries
           that shape how I think about AI. From LLMs and agentic systems to the engineering behind them,
           I'm here to understand more deeply, build more thoughtfully, and share what I learn along the way.
         </p>
@@ -92,262 +88,191 @@
         <div class="hero-footnote"><span>01</span> BE AI LITERATE. BE AI SAVVY</div>
       </div>
 
-      
-        <div class="hero-art">
+      <div class="hero-art">
         <div class="notebook-scene">
           <div class="notebook">
             <!-- Spiral and notebook-pages -->
           </div>
         </div>
-      </div>
-      
-      <div class="hero-bottom">
-        <!-- Hero footer content -->
-      </div>
-      
-           
-              
-      <div class="notebook-pages"
-           id="notebookPage"
-           role="button"
-           tabindex="0"
-           aria-label="Notebook page. Click to turn to the next note."
-           title="Click to turn the page">
-      
-        <div class="notebook-page" id="notebookPageContent">
-      
-          <div class="page-topline">
-            <span>FIELD NOTES</span>
-            <span id="pageNumber">01 / 04</span>
+
+        <!-- Field notes card: now inside hero-art so it sits beside the headline -->
+        <div class="notebook-pages"
+             id="notebookPage"
+             role="button"
+             tabindex="0"
+             aria-label="Notebook page. Click to turn to the next note."
+             title="Click to turn the page">
+          <div class="notebook-page" id="notebookPageContent">
+            <div class="page-topline">
+              <span>FIELD NOTES</span>
+              <span id="pageNumber">01 / 04</span>
+            </div>
+
+            <div class="page-content">
+              <span class="handwritten-note" id="pageNote">
+                Blogging is a conversation, not a code.
+              </span>
+              <span class="note-underline"></span>
+            </div>
+
+            <div class="page-footer">
+              <span id="pageCategory">A THOUGHT TO KEEP</span>
+              <span class="page-doodle">✳</span>
+            </div>
           </div>
-      
-          <div class="page-content">
-            <span class="handwritten-note" id="pageNote">
-              Blogging is a conversation, not a code.
-            </span>
-            <span class="note-underline"></span>
-          </div>
-      
-          <div class="page-footer">
-            <span id="pageCategory">A THOUGHT TO KEEP</span>
-            <span class="page-doodle">✳</span>
-          </div>
-      
         </div>
+
+        <!--
+        <div class="hero-art reveal" aria-label="Abstract illustration of interconnected ideas">
+          <div class="art-grid"></div>
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <div class="orbit-core"></div>
+          <span class="art-node node-one"></span>
+          <span class="art-node node-two"></span>
+          <span class="art-node node-three"></span>
+          <span class="art-node node-four"></span>
+          <span class="art-label label-one">IDEAS</span>
+          <span class="art-label label-two">MODELS</span>
+          <span class="art-label label-three">SYSTEMS</span>
+          <span class="art-coordinate">LATENT SPACE / 001</span>
+          <span class="art-cross cross-one">+</span>
+          <span class="art-cross cross-two">+</span>
+        </div>
+        -->
       </div>
 
-
-      <!--<div class="hero-art reveal" aria-label="Abstract illustration of interconnected ideas">
-        <div class="art-grid"></div>
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="orbit orbit-three"></div>
-        <div class="orbit-core"></div>
-        <span class="art-node node-one"></span>
-        <span class="art-node node-two"></span>
-        <span class="art-node node-three"></span>
-        <span class="art-node node-four"></span>
-        <span class="art-label label-one">IDEAS</span>
-        <span class="art-label label-two">MODELS</span>
-        <span class="art-label label-three">SYSTEMS</span>
-        <span class="art-coordinate">LATENT SPACE / 001</span>
-        <span class="art-cross cross-one">+</span>
-        <span class="art-cross cross-two">+</span>
-      </div>-->
-      <br>
       <div class="hero-bottom">
         <span>A JOURNAL OF INFORMATION AND THOUGHTS WORTH SHARING</span>
         <span>LEARN <i>·</i> EXPERIMENT <i>·</i> UNDERSTAND</span>
       </div>
     </section>
 
-    
+    <!-- ABOUT -->
+    <section class="about-strip" id="about">
+      <div class="page-wrap about-grid">
 
- 
+        <!-- Column 1: Section heading -->
+        <div class="about-heading">
+          <h2>About the Author</h2>
+          <div class="about-accent"></div>
+        </div>
 
-<section class="about-strip" id="about">
-  <div class="page-wrap about-grid">
+        <!-- Column 2: Author description -->
+        <div class="author-content">
+          <h3 class="author-intro">
+            Student | Developer | Researcher <br>
+            2x Oracle Certified 🏅 <br>
+            Master's in AI @ Monash University 🎓
+          </h3>
 
-    <!-- Column 1: Section heading -->
-    <div class="about-heading">
-      
-      <h2>About the Author</h2>
-      <div class="about-accent"></div>
-    </div>
+          <p class="author-description">
+            My interests span Large Language Models, Agentic AI, Machine
+            Learning,<br> and the engineering practices that make AI systems
+            more reliable. <br> Through experiments, projects, and writing,
+            I document what I learn,<br> question what I encounter, and turn
+            ideas into things worth building.
+          </p>
 
-    <!-- Column 2: Author description -->
-    <div class="author-content">
-      <h3 class="author-intro">
-        Student | Developer | Researcher <br> 
-        2x Oracle Certified 🏅 <br>
-        Master's in AI @ Monash University 🎓 
-      </h3>
+          <div class="author-tags">
+            <span>AI &amp; ML</span>
+            <span>Prompt Engineering</span>
+            <span>Research</span>
+          </div>
+        </div>
 
-      <p class="author-description">
-        My interests span Large Language Models, Agentic AI, Machine
-        Learning,<br> and the engineering practices that make AI systems
-        more reliable. <br> Through experiments, projects, and writing,
-        I document what I learn,<br> question what I encounter, and turn
-        ideas into things worth building.
-      </p>
+        <!-- Column 3: Author photo -->
+        <div class="author-photo-wrap">
+          <img
+            src="assets/Profile.jpeg"
+            alt="Portrait of Shreyas Jadhav"
+            class="author-photo"
+          />
+        </div>
 
-      <div class="author-tags">
-        <span>AI &amp; ML</span>
-        <span>Prompt Engineering</span>
-        <span>Research </span>
       </div>
-    </div>
+    </section>
 
-    <!-- Column 3: Author photo -->
-    <div class="author-photo-wrap">
-      <img
-        src="assets\Profile.jpeg"
-        alt="Portrait of Shreyas Jadhav"
-        class="author-photo"
-      />
-    </div>
-
-  </div>
-</section>
-
-
-
+    <!-- EXPLORE -->
     <section class="explore-section" id="explore">
       <div class="page-wrap">
 
-       <div class="explore-header">
+        <div class="explore-header">
           <div>
             <span class="section-eyebrow">THE KNOWLEDGE JOURNAL</span>
-           <h2>Explore the journal<span> !</span></h2>
-           <p>
+            <h2>Explore the journal<span> !</span></h2>
+            <p>
               Blogs published by researching, experimenting, and brainstorming ideas from the evolving world of AI.
             </p>
           </div>
-       </div>
+        </div>
 
         <div class="blog-grid">
 
-         <!-- Blog Card 1 -->
-         <a href="articles\Blog 1\Yesterday's Scripts Are Today's Agents.html" class="blog-card">
-           <div class="blog-thumbnail">
-             <img src="assets\Thumbnail1.jpg"
+          <!-- Blog Card 1 -->
+          <a href="articles/Blog 1/Yesterday's Scripts Are Today's Agents.html" class="blog-card">
+            <div class="blog-thumbnail">
+              <img src="assets/Thumbnail1.jpg"
                    alt="Prompt injection and agent security">
-             <!-- <span class="blog-category">AI SECURITY</span> -->
+              <!-- <span class="blog-category">AI SECURITY</span> -->
             </div>
             <div class="blog-card-content">
-             <span class="blog-subdomain">Agentic AI Security</span>
-                <h3>Yesterday's Scripts Are Today's Agents.</h3>
-             <p class="blog-read-more">Read article <span>↗</span></p>
+              <span class="blog-subdomain">Agentic AI Security</span>
+              <h3>Yesterday's Scripts Are Today's Agents.</h3>
+              <p class="blog-read-more">Read article <span>↗</span></p>
             </div>
-         </a>
+          </a>
 
-        
-        <!-- Blog Card 2 -->
-      
+          <!-- Blog Card 2 -->
           <a href="articles/Blog 2/Open_Weights_Explained.html" class="blog-card">
             <div class="blog-thumbnail">
-             <img src="assets/Thumbnail2.jpg"
-                  alt="Open Weights, Explained. A Guide to the Terms in the Open Models Letter">
-             <!-- <span class="blog-category">OPEN WEIGHTS</span> -->
-           </div>
-           <div class="blog-card-content">
-             <span class="blog-subdomain">AI TERMINOLOGIES</span>
-             <h3>Open Weights, Explained. A Guide to the Terms in the Open Models Letter</h3>
-             <p class="blog-read-more">Read article <span>↗</span></p>
-           </div>
-         </a>
-         
+              <img src="assets/Thumbnail2.jpg"
+                   alt="Open Weights, Explained. A Guide to the Terms in the Open Models Letter">
+              <!-- <span class="blog-category">OPEN WEIGHTS</span> -->
+            </div>
+            <div class="blog-card-content">
+              <span class="blog-subdomain">AI TERMINOLOGIES</span>
+              <h3>Open Weights, Explained. A Guide to the Terms in the Open Models Letter</h3>
+              <p class="blog-read-more">Read article <span>↗</span></p>
+            </div>
+          </a>
 
-         <!-- Blog Card 3 -->
-        <!-- 
-         <a href="articles/agentic-systems.html" class="blog-card">
-           <div class="blog-thumbnail">
+          <!-- Blog Card 3 (inactive)
+          <a href="articles/agentic-systems.html" class="blog-card">
+            <div class="blog-thumbnail">
               <img src="assets/thumbnails/agentic-systems.png"
                    alt="Agentic AI systems">
-             <span class="blog-category">ARTIFICIAL INTELLIGENCE</span>
-           </div>
-           <div class="blog-card-content">
-             <span class="blog-subdomain">AI Agents</span>
-             <h3>From Language Models to Autonomous Agents</h3>
-             <p class="blog-read-more">Read article <span>↗</span></p>
-           </div>
-         </a>
-        -->
+              <span class="blog-category">ARTIFICIAL INTELLIGENCE</span>
+            </div>
+            <div class="blog-card-content">
+              <span class="blog-subdomain">AI Agents</span>
+              <h3>From Language Models to Autonomous Agents</h3>
+              <p class="blog-read-more">Read article <span>↗</span></p>
+            </div>
+          </a>
+          -->
 
-         <!-- Blog Card 4 -->
-        <!-- 
-         <a href="articles/prompt-engineering.html" class="blog-card">
-           <div class="blog-thumbnail">
-             <img src="assets/thumbnails/prompt-engineering.png"
-                  alt="Prompt engineering">
-             <span class="blog-category">GENERATIVE AI</span>
-           </div>
-           <div class="blog-card-content">
-             <span class="blog-subdomain">Prompt Engineering</span>
-             <h3>Beyond the Prompt: Designing Better AI Interactions</h3>
-             <p class="blog-read-more">Read article <span>↗</span></p>
-           </div>
-         </a>
-        -->
-         
+          <!-- Blog Card 4 (inactive)
+          <a href="articles/prompt-engineering.html" class="blog-card">
+            <div class="blog-thumbnail">
+              <img src="assets/thumbnails/prompt-engineering.png"
+                   alt="Prompt engineering">
+              <span class="blog-category">GENERATIVE AI</span>
+            </div>
+            <div class="blog-card-content">
+              <span class="blog-subdomain">Prompt Engineering</span>
+              <h3>Beyond the Prompt: Designing Better AI Interactions</h3>
+              <p class="blog-read-more">Read article <span>↗</span></p>
+            </div>
+          </a>
+          -->
 
         </div>
       </div>
     </section>
 
-<!--
-      <div class="owner-panel" id="ownerPanel" hidden>
-        <div>
-          <strong>Owner workspace</strong>
-          <p>Reorder your topic folders. Changes are saved in this browser only.</p>
-        </div>
-        <span class="owner-status">LOCAL PREVIEW</span>
-      </div>
-
-      <div class="content-layout" id="topics">
-        <aside class="topic-sidebar">
-          <div class="sidebar-heading">YOUR LIBRARY <span>↘</span></div>
-          <button class="sidebar-domain active" data-filter="All">
-            <span class="folder-icon">▤</span> All topics <span class="sidebar-number" id="topicCount">10</span>
-          </button>
-          <div class="sidebar-divider"></div>
-          <div class="sidebar-heading subheading">ARTIFICIAL INTELLIGENCE</div>
-          <div class="sidebar-topics" id="sidebarTopics"></div>
-          <div class="sidebar-note">
-            <span class="note-icon">✳</span>
-            <p>A living index.<br />Built one idea at a time.</p>
-          </div>
-        </aside>
-
-        <div class="article-area">
-          <div class="article-area-top">
-            <div>
-              <div class="current-location">LIBRARY / <span id="currentTopic">ALL TOPICS</span></div>
-              <h3 id="resultsHeading">All topics</h3>
-            </div>
-            <span class="results-count" id="resultsCount">0 ENTRIES</span>
-          </div>
-
-          <div class="article-grid" id="articleGrid"></div>
-
-          <div class="empty-state" id="emptyState">
-            <div class="empty-orbit">
-              <span></span><i></i>
-            </div>
-            <div class="eyebrow">A SPACE FOR WHAT COMES NEXT</div>
-            <h3 id="emptyTitle">The next idea starts here.</h3>
-            <p id="emptyMessage">This shelf is still empty. New notes and explorations will find their home here soon.</p>
-            <button class="text-link reset-filter" id="resetFilter">Explore all topics <span>↗</span></button>
-          </div>
-
-          <div class="owner-hint" id="ownerHint" hidden>
-            To publish an article in this prototype, add its details to the <code>articles</code> array in <code>script.js</code>.
-          </div>
-        </div>
-      </div>
-    </section>
-    -->
-
+    <!-- CLOSING -->
     <section class="closing-band">
       <div class="page-wrap closing-inner">
         <div>
@@ -361,12 +286,13 @@
         <div class="closing-decoration" aria-hidden="true">∴</div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer page-wrap">
     <a class="footer-brand" href="index.html">THE LATENT SPACE<span>®</span></a>
     <span>EXPLORE THE SPACE BETWEEN IDEAS.</span>
-    <a href="index.html" >BACK TO TOP ↑</a>
+    <a href="index.html">BACK TO TOP ↑</a>
     <span class="copyright">© <span id="year"></span></span>
   </footer>
 
