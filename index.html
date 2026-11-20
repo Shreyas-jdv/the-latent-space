@@ -58,57 +58,71 @@
   <main id="home">
 
     <!-- HERO -->
-    <section class="hero page-wrap">
-      <div class="hero-copy reveal">
-        <div class="eyebrow"><span class="live-dot"></span> AN AI ENGINEER'S THINKING SPACE</div>
-        <h1>Ideas worth keeping. <br /> Thinking beyond the <span>obvious.</span></h1>
-        <p class="hero-description">
-          This is where I document the experiments, ideas, failures, and discoveries
-          that shape how I think about AI. From LLMs and agentic systems to the engineering behind them,
-          I'm here to understand more deeply, build more thoughtfully, and share what I learn along the way.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-dark" href="#explore">Explore the journal <span>↗</span></a>
-          <a class="text-link" href="#about">Why this space? <span>↓</span></a>
+<section class="hero page-wrap">
+  <div class="hero-copy reveal">
+    <div class="eyebrow"><span class="live-dot"></span> AN AI ENGINEER'S THINKING SPACE</div>
+    <h1>Ideas worth keeping. <br /> Thinking beyond the <span>obvious.</span></h1>
+    <p class="hero-description">
+      This is where I document the experiments, ideas, failures, and discoveries
+      that shape how I think about AI. From LLMs and agentic systems to the engineering behind them,
+      I'm here to understand more deeply, build more thoughtfully, and share what I learn along the way.
+    </p>
+    <div class="hero-actions">
+      <a class="button button-dark" href="#explore">Explore the journal <span>↗</span></a>
+      <a class="text-link" href="#about">Why this space? <span>↓</span></a>
+    </div>
+    <div class="hero-footnote"><span>_</span> BE AI LITERATE. BE AI SAVVY</div>
+  </div>
+
+  <div class="hero-art">
+    <div class="notebook-scene">
+      <div class="notebook">
+
+        <!-- Spiral binding on the left edge -->
+        <div class="notebook-spiral" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
-        <div class="hero-footnote"><span>01</span> BE AI LITERATE. BE AI SAVVY</div>
-      </div>
 
-      <div class="hero-art">
-        <div class="notebook-scene">
-          <div class="notebook">
-            <div class="notebook-pages"
-                 id="notebookPage"
-                 role="button"
-                 tabindex="0"
-                 aria-label="Notebook page. Click to turn to the next note."
-                 title="Click to turn the page">
-              <div class="notebook-page" id="notebookPageContent">
-                <div class="page-topline">
-                  <span>FIELD NOTES</span>
-                  <span id="pageNumber">01 / 04</span>
-                </div>
+        <div class="notebook-pages"
+             id="notebookPage"
+             role="button"
+             tabindex="0"
+             aria-label="Notebook page. Click to turn to the next note."
+             title="Click to turn the page">
 
-                <div class="page-content">
-                  <span class="handwritten-note" id="pageNote">
-                    Blogging is a conversation, not a code.
-                  </span>
-                  <span class="note-underline"></span>
-                </div>
+          <!-- Current page -->
+          <div class="notebook-page" id="notebookPageContent">
+            <div class="page-topline">
+              <span>NOTES</span>
+              <span id="pageNumber">01 / 04</span>
+            </div>
 
-                <div class="page-footer">
-                  <span id="pageCategory">A THOUGHT TO KEEP</span>
-                  <span class="page-doodle">✳</span>
-                </div>
-              </div>
+            <div class="page-content">
+              <span class="handwritten-note" id="pageNote">
+                Blogging is a conversation, not a code.
+              </span>
+              <span class="note-underline"></span>
+            </div>
+
+            <div class="page-footer">
+              <span id="pageCategory">A THOUGHT TO KEEP</span>
             </div>
           </div>
-        </div>
-      </div>
+
+          <!-- Leaf that lifts off during the turn (filled by script.js) -->
+          <div class="notebook-page page-flip" id="pageFlip" aria-hidden="true"></div>
+         </div>
+
+      
+
 
       <div class="hero-bottom">
         <span>A JOURNAL OF INFORMATION AND THOUGHTS WORTH SHARING</span>
         <span>LEARN <i>·</i> EXPERIMENT <i>·</i> UNDERSTAND</span>
+      </div>
+      </div>
+      </div>
       </div>
     </section>
 
