@@ -431,9 +431,10 @@ if (!motionReduced && "IntersectionObserver" in window) {
 }
 
 
-// =========================================
-// INTERACTIVE NOTEBOOK
-// =========================================
+
+/* =========================================
+   INTERACTIVE SPIRAL NOTEBOOK
+========================================= */
 
 const notebookNotes = [
   {
@@ -455,52 +456,78 @@ const notebookNotes = [
 ];
 
 let currentNoteIndex = 0;
+let isTurning = false;
 
 const notebookPage = document.getElementById("notebookPage");
+const notebookPageContent = document.getElementById("notebookPageContent");
+
 const pageNote = document.getElementById("pageNote");
 const pageCategory = document.getElementById("pageCategory");
 const pageNumber = document.getElementById("pageNumber");
-const notebookCounter = document.getElementById("notebookCounter");
-const prevNoteButton = document.getElementById("prevNote");
-const nextNoteButton = document.getElementById("nextNote");
 
-function updateNotebook() {
-  if (!notebookPage) return;
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
 
+function updateNotebookContent() {
   const note = notebookNotes[currentNoteIndex];
+
   const page = String(currentNoteIndex + 1).padStart(2, "0");
   const total = String(notebookNotes.length).padStart(2, "0");
-
-  notebookPage.classList.remove("turning");
-
-  // Restart the animation
-  void notebookPage.offsetWidth;
-
-  notebookPage.classList.add("turning");
 
   pageNote.textContent = note.note;
   pageCategory.textContent = note.category;
   pageNumber.textContent = `${page} / ${total}`;
-  notebookCounter.textContent = `${page} — ${total}`;
-
-  prevNoteButton.disabled = currentNoteIndex === 0;
-  nextNoteButton.disabled = currentNoteIndex === notebookNotes.length - 1;
 }
 
-prevNoteButton?.addEventListener("click", () => {
-  if (currentNoteIndex > 0) {
-    currentNoteIndex--;
-    updateNotebook();
+function turnNotebookPage() {
+  if (!notebookPage || !notebookPageContent || isTurning) {
+    return;
+  }
+
+  isTurning = true;
+
+  // Advance to the next page and wrap around.
+  currentNoteIndex =
+    (currentNoteIndex + 1) % notebookNotes.length;
+
+  if (reducedMotion) {
+    updateNotebookContent();
+    isTurning = false;
+    return;
+  }
+
+  // Restart the page animation.
+  notebookPageContent.classList.remove("turning");
+  void notebookPageContent.offsetWidth;
+  notebookPageContent.classList.add("turning");
+
+  // Change the note while the page is turned.
+  const changeTimer = setTimeout(() => {
+    updateNotebookContent();
+  }, 275);
+
+  notebookPageContent.addEventListener(
+    "animationend",
+    () => {
+      clearTimeout(changeTimer);
+      notebookPageContent.classList.remove("turning");
+      isTurning = false;
+    },
+    { once: true }
+  );
+}
+
+// Clicking anywhere on the paper turns the page.
+notebookPage?.addEventListener("click", turnNotebookPage);
+
+// Keyboard support: Enter or Space.
+notebookPage?.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    turnNotebookPage();
   }
 });
 
-nextNoteButton?.addEventListener("click", () => {
-  if (currentNoteIndex < notebookNotes.length - 1) {
-    currentNoteIndex++;
-    updateNotebook();
-  }
-});
-
-// Display the first page on initial load
-updateNotebook();
-
+// Initial page.
+updateNotebookContent();
