@@ -430,3 +430,77 @@ if (!motionReduced && "IntersectionObserver" in window) {
   });
 }
 
+
+// =========================================
+// INTERACTIVE NOTEBOOK
+// =========================================
+
+const notebookNotes = [
+  {
+    note: "Blogging is a conversation, not a code.",
+    category: "A THOUGHT TO KEEP"
+  },
+  {
+    note: "Curiosity is the beginning of every great discovery.",
+    category: "ON CURIOSITY"
+  },
+  {
+    note: "Build things that make people think differently.",
+    category: "ON BUILDING"
+  },
+  {
+    note: "The best ideas often begin with better questions.",
+    category: "ON LEARNING"
+  }
+];
+
+let currentNoteIndex = 0;
+
+const notebookPage = document.getElementById("notebookPage");
+const pageNote = document.getElementById("pageNote");
+const pageCategory = document.getElementById("pageCategory");
+const pageNumber = document.getElementById("pageNumber");
+const notebookCounter = document.getElementById("notebookCounter");
+const prevNoteButton = document.getElementById("prevNote");
+const nextNoteButton = document.getElementById("nextNote");
+
+function updateNotebook() {
+  if (!notebookPage) return;
+
+  const note = notebookNotes[currentNoteIndex];
+  const page = String(currentNoteIndex + 1).padStart(2, "0");
+  const total = String(notebookNotes.length).padStart(2, "0");
+
+  notebookPage.classList.remove("turning");
+
+  // Restart the animation
+  void notebookPage.offsetWidth;
+
+  notebookPage.classList.add("turning");
+
+  pageNote.textContent = note.note;
+  pageCategory.textContent = note.category;
+  pageNumber.textContent = `${page} / ${total}`;
+  notebookCounter.textContent = `${page} — ${total}`;
+
+  prevNoteButton.disabled = currentNoteIndex === 0;
+  nextNoteButton.disabled = currentNoteIndex === notebookNotes.length - 1;
+}
+
+prevNoteButton?.addEventListener("click", () => {
+  if (currentNoteIndex > 0) {
+    currentNoteIndex--;
+    updateNotebook();
+  }
+});
+
+nextNoteButton?.addEventListener("click", () => {
+  if (currentNoteIndex < notebookNotes.length - 1) {
+    currentNoteIndex++;
+    updateNotebook();
+  }
+});
+
+// Display the first page on initial load
+updateNotebook();
+
