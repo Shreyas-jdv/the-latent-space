@@ -71,7 +71,7 @@
       <a class="button button-dark" href="#explore">Explore the journal <span>↗</span></a>
       <a class="text-link" href="#about">Why this space? <span>↓</span></a>
     </div>
-    <div class="hero-footnote"><span>_</span> BE AI LITERATE. BE AI SAVVY</div>
+    <div class="hero-footnote"><h2><span>_</span> BE AI LITERATE. BE AI SAVVY</h2></div>
   </div>
 
   <div class="hero-art">
@@ -110,17 +110,19 @@
             </div>
           </div>
 
-          <!-- Leaf that lifts off during the turn (filled by script.js) -->
-          <div class="notebook-page page-flip" id="pageFlip" aria-hidden="true"></div>
-         </div>
+          <!-- Leaf that turns over the spine: front = current note, back = next note -->
+          <div class="page-flip" id="pageFlip" aria-hidden="true">
+            <div class="page-face page-front"></div>
+            <div class="page-face page-back"></div>
+          </div>
 
       
 
 
-      <div class="hero-bottom">
+      <!--<div class="hero-bottom">
         <span>A JOURNAL OF INFORMATION AND THOUGHTS WORTH SHARING</span>
         <span>LEARN <i>·</i> EXPERIMENT <i>·</i> UNDERSTAND</span>
-      </div>
+      </div>-->
       </div>
       </div>
       </div>
