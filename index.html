@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f8f7f4" />
+  <meta name="theme-color" content="#292B2E" />
   <meta name="description" content="The Latent Space is an AI knowledge journal exploring machine learning, deep learning, LLMs, AI agents, and the engineering behind intelligent systems." />
   <title>The Latent Space | An AI Knowledge Journal</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -22,12 +22,9 @@
         src="assets/The latent Space Logo.png"
         alt="The Latent Space pumpkin mascot"
       />
-
       <span class="brand-copy">
         <span class="brand-name">The Latent Space</span>
-        <span class="brand-tagline">
-          Journal by Shreyas Sanjay Jadhav
-        </span>
+        <span class="brand-tagline">Journal by Shreyas Sanjay Jadhav</span>
       </span>
     </a>
 
@@ -47,20 +44,9 @@
       <div class="nav-links">
         <a href="#explore">Explore</a>
         <a href="#about">About</a>
-        <!-- <a href="#topics">Topics</a> -->
       </div>
 
       <div class="nav-actions">
-        <!--
-        <button
-          class="nav-button owner-button"
-          id="ownerToggle"
-          type="button"
-        >
-          <span aria-hidden="true">↗</span>
-          Owner
-        </button>
-        -->
         <a class="nav-button read-button" href="#explore">
           Read the blog
           <span aria-hidden="true">↘</span>
@@ -91,56 +77,33 @@
       <div class="hero-art">
         <div class="notebook-scene">
           <div class="notebook">
-            <!-- Spiral and notebook-pages -->
-          </div>
-        </div>
+            <div class="notebook-pages"
+                 id="notebookPage"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Notebook page. Click to turn to the next note."
+                 title="Click to turn the page">
+              <div class="notebook-page" id="notebookPageContent">
+                <div class="page-topline">
+                  <span>FIELD NOTES</span>
+                  <span id="pageNumber">01 / 04</span>
+                </div>
 
-        <!-- Field notes card: now inside hero-art so it sits beside the headline -->
-        <div class="notebook-pages"
-             id="notebookPage"
-             role="button"
-             tabindex="0"
-             aria-label="Notebook page. Click to turn to the next note."
-             title="Click to turn the page">
-          <div class="notebook-page" id="notebookPageContent">
-            <div class="page-topline">
-              <span>FIELD NOTES</span>
-              <span id="pageNumber">01 / 04</span>
-            </div>
+                <div class="page-content">
+                  <span class="handwritten-note" id="pageNote">
+                    Blogging is a conversation, not a code.
+                  </span>
+                  <span class="note-underline"></span>
+                </div>
 
-            <div class="page-content">
-              <span class="handwritten-note" id="pageNote">
-                Blogging is a conversation, not a code.
-              </span>
-              <span class="note-underline"></span>
-            </div>
-
-            <div class="page-footer">
-              <span id="pageCategory">A THOUGHT TO KEEP</span>
-              <span class="page-doodle">✳</span>
+                <div class="page-footer">
+                  <span id="pageCategory">A THOUGHT TO KEEP</span>
+                  <span class="page-doodle">✳</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <!--
-        <div class="hero-art reveal" aria-label="Abstract illustration of interconnected ideas">
-          <div class="art-grid"></div>
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="orbit orbit-three"></div>
-          <div class="orbit-core"></div>
-          <span class="art-node node-one"></span>
-          <span class="art-node node-two"></span>
-          <span class="art-node node-three"></span>
-          <span class="art-node node-four"></span>
-          <span class="art-label label-one">IDEAS</span>
-          <span class="art-label label-two">MODELS</span>
-          <span class="art-label label-three">SYSTEMS</span>
-          <span class="art-coordinate">LATENT SPACE / 001</span>
-          <span class="art-cross cross-one">+</span>
-          <span class="art-cross cross-two">+</span>
-        </div>
-        -->
       </div>
 
       <div class="hero-bottom">
@@ -153,13 +116,11 @@
     <section class="about-strip" id="about">
       <div class="page-wrap about-grid">
 
-        <!-- Column 1: Section heading -->
         <div class="about-heading">
           <h2>About the Author</h2>
           <div class="about-accent"></div>
         </div>
 
-        <!-- Column 2: Author description -->
         <div class="author-content">
           <h3 class="author-intro">
             Student | Developer | Researcher <br>
@@ -182,7 +143,6 @@
           </div>
         </div>
 
-        <!-- Column 3: Author photo -->
         <div class="author-photo-wrap">
           <img
             src="assets/Profile.jpeg"
@@ -213,9 +173,7 @@
           <!-- Blog Card 1 -->
           <a href="articles/Blog 1/Yesterday's Scripts Are Today's Agents.html" class="blog-card">
             <div class="blog-thumbnail">
-              <img src="assets/Thumbnail1.jpg"
-                   alt="Prompt injection and agent security">
-              <!-- <span class="blog-category">AI SECURITY</span> -->
+              <img src="assets/Thumbnail1.jpg" alt="Prompt injection and agent security" />
             </div>
             <div class="blog-card-content">
               <span class="blog-subdomain">Agentic AI Security</span>
@@ -227,46 +185,14 @@
           <!-- Blog Card 2 -->
           <a href="articles/Blog 2/Open_Weights_Explained.html" class="blog-card">
             <div class="blog-thumbnail">
-              <img src="assets/Thumbnail2.jpg"
-                   alt="Open Weights, Explained. A Guide to the Terms in the Open Models Letter">
-              <!-- <span class="blog-category">OPEN WEIGHTS</span> -->
+              <img src="assets/Thumbnail2.jpg" alt="Open Weights, Explained. A Guide to the Terms in the Open Models Letter" />
             </div>
             <div class="blog-card-content">
-              <span class="blog-subdomain">AI TERMINOLOGIES</span>
+              <span class="blog-subdomain">AI Terminologies</span>
               <h3>Open Weights, Explained. A Guide to the Terms in the Open Models Letter</h3>
               <p class="blog-read-more">Read article <span>↗</span></p>
             </div>
           </a>
-
-          <!-- Blog Card 3 (inactive)
-          <a href="articles/agentic-systems.html" class="blog-card">
-            <div class="blog-thumbnail">
-              <img src="assets/thumbnails/agentic-systems.png"
-                   alt="Agentic AI systems">
-              <span class="blog-category">ARTIFICIAL INTELLIGENCE</span>
-            </div>
-            <div class="blog-card-content">
-              <span class="blog-subdomain">AI Agents</span>
-              <h3>From Language Models to Autonomous Agents</h3>
-              <p class="blog-read-more">Read article <span>↗</span></p>
-            </div>
-          </a>
-          -->
-
-          <!-- Blog Card 4 (inactive)
-          <a href="articles/prompt-engineering.html" class="blog-card">
-            <div class="blog-thumbnail">
-              <img src="assets/thumbnails/prompt-engineering.png"
-                   alt="Prompt engineering">
-              <span class="blog-category">GENERATIVE AI</span>
-            </div>
-            <div class="blog-card-content">
-              <span class="blog-subdomain">Prompt Engineering</span>
-              <h3>Beyond the Prompt: Designing Better AI Interactions</h3>
-              <p class="blog-read-more">Read article <span>↗</span></p>
-            </div>
-          </a>
-          -->
 
         </div>
       </div>
